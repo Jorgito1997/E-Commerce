@@ -1,2 +1,2 @@
 # E-Comerce
-Electronic Comerce Platform
+Electronic Commerce Platform
