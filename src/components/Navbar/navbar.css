@@ -127,6 +127,11 @@
   z-index: 3;
 }
 
+.profile {
+  position: relative !important;
+  z-index: 3;
+}
+
 .cart::before {
   content: attr(data-num);
   position: absolute;
