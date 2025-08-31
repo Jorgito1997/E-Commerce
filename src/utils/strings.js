@@ -13,5 +13,9 @@ export const Strings = {
     noItems : 'No hay artículos añadidos al carrito',
     cartSummary : 'Resumen del pedido',
     totalPrice : 'Precio total',
-    alsoLike : 'También puede interesarte'
+    alsoLike : 'También puede interesarte',
+    ownerAddress : '3507 West Lawrence rd Phoenix Az 85019',
+    ownerPhone : '+1 602-403-9778',
+    helpPhone : '+1 602-775-3048',
+
 }

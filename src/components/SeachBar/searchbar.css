@@ -2,11 +2,13 @@
     position: relative;
     display: flex;
     align-items: center;
-    max-width: 650px;
+    max-width: 760px; /* evita que crezca demasiado en pantallas muy grandes; ajusta si hace falta */
+    width: calc(100% + 200px);
     height: 40px;
-    padding:15px;
+    padding: 15px;
     border-radius: 20px;
     background-color: #f2f2f2;
+    gap: 8px;
 }
 
 input[type="text"] {
@@ -17,7 +19,8 @@ input[type="text"] {
     font-size: 16px;
     color: #333;
     outline: none;
-    background:transparent;
+    background: transparent;
+    box-sizing: border-box;
 }
 
 .search-icon {
@@ -26,4 +29,12 @@ input[type="text"] {
     font-size: 20px;
     color: #999;
     cursor: pointer;
+}
+
+/* mantener buena experiencia en móviles: no crecer más allá del viewport */
+@media (max-width: 768px) {
+    .search-container {
+        width: 60%;
+        max-width: 100%;
+    }
 }

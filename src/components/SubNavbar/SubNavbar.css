@@ -1,0 +1,69 @@
+/* left toggle (siempre alineado a la izquierda) */
+.left-toggle {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.left-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.left-toggle-btn:focus {
+  outline: 2px solid rgba(15,52,96,0.18);
+  outline-offset: 2px;
+}
+
+.left-toggle-btn .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-color, #0f3460);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* menú desplegable del toggle izquierdo */
+.left-toggle-menu {
+  position: absolute;
+  left: 0;
+  top: 44px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(15,52,96,0.08);
+  border-radius: 8px;
+  padding: 8px;
+  min-width: 140px;
+}
+
+.left-menu-item {
+  display: block;
+  padding: 8px 12px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.left-menu-item:hover {
+  background: rgba(15,52,96,0.06);
+  color: var(--primary-color);
+}
+
+/* evitar solapamiento con el brand */
+.navbar-container { position: relative; }
+.navbar-brand { margin-left: 56px; } /* ajusta si es necesario */
+
+/* responsive: mover un poco el toggle en pantallas pequeñas */
+@media (max-width: 576px) {
+  .left-toggle { left: 8px; top: 8px; }
+  .navbar-brand { margin-left: 48px; }
+}

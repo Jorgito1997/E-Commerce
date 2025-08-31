@@ -3,9 +3,11 @@
   position: relative !important;
   background-color: white;
   transition: all 0.3s ease-out 0s !important;
-  box-shadow: 0px 10px 10px 0px rgba(9, 5, 29, 0.171) !important;
+   box-shadow: 0px 10px 10px 0px rgba(9, 5, 29, 0.171) !important; 
   font-size: 1.2rem !important;
 }
+
+
 
 .navbar.fixed {
   position: fixed !important;
@@ -15,8 +17,12 @@
 }
 
 .navbar-container {
-  display: flex;
-  justify-content: space-between !important;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 24px; /* horizontal gutter from window edges */
+  box-sizing: border-box;
+  display: block; /* keep bootstrap layout but allow absolute children */
 }
 
 .navbar-toggler {
@@ -100,14 +106,37 @@
   margin: 0;
 }
 
-.navbar-link {
-  display: flex !important;
-  text-decoration: none;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  font-size: 10px !important;
-  padding: 0.8rem 0.5rem 0.2rem !important;
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: 0;
+  left: 50%;
+  background-color: var(--primary-color);
+  transition: all 0.3s ease;
+  border-radius: 3px;
+}
+
+.navbar-link:hover::after {
+  width: 80%;
+  left: 10%;
+}
+
+.navbar-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-link {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .nav-link-label {
@@ -127,17 +156,13 @@
   z-index: 3;
 }
 
-.profile {
-  position: relative !important;
-  z-index: 3;
-}
 
 .cart::before {
   content: attr(data-num);
   position: absolute;
   right: 0;
   top: -5px;
-  background-color: #0f3460;
+  background-color: rgba(248, 47, 11, 1);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -183,6 +208,7 @@
     width: 25px !important;
     height: 3px !important;
   }
+
   ion-icon {
     font-size: 20px;
   }
@@ -200,5 +226,472 @@
     align-items: flex-end;
     gap: 5px;
   }
+
+}
+
+/* Centrar el searchbar dentro del navbar */
+.navbar-container {
+  position: relative; /* necesario para posicion absolute del centro */
+}
+
+.navbar-search-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 460px;
+  max-width: calc(100% - 220px); /* deja espacio para brand y acciones a la derecha */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2200;
+}
+
+/* Responsive: reducir ancho o esconder en pantallas pequeñas */
+@media (max-width: 768px) {
+  /* navbar más alto para espacio comfortable */
+  .navbar {
+    min-height: 72px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  /* layout en una fila, elementos centrados verticalmente */
+  .navbar-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between;
+    gap: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative;
+  }
+
+  /* esquinas en flujo (ya no absolute) */
+  .left-corner,
+  .brand-wrap,
+  .navbar-actions {
+    position: static !important;
+    top: auto !important;
+    transform: none !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2200;
+  }
+
+  /* barra de búsqueda ocupa el espacio central y queda alineada verticalmente */
+  .navbar-search-center {
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    width: auto;
+    max-width: calc(100% - 120px); /* deja espacio para esquinas */
+    z-index: 2100;
+  }
+
+  /* asegurar inputs y botones tengan altura coherente */
+  .navbar-search-center .search-container,
+  .navbar-actions .transparent-btn,
+  .left-corner .left-toggle-btn {
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* si aún hay solapamiento en pantallas muy pequeñas, ocultar búsqueda */
+  @media (max-width: 420px) {
+    .navbar-search-center { display: none !important; }
+  }
+}
+
+/* Estilos para el menú desplegable del perfil */
+#profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  padding: 8px 0;
+  margin-top: 8px;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.profile-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 16px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  transform: rotate(45deg);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: #333;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+/* Asegurar que el carrito expandido tenga el mismo estilo */
+.expanded-cart {
+  display: flex;
+  align-items: center;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive: ocultar el menú desplegable en móviles cuando el navbar está expandido */
+@media (max-width: 767.98px) {
+  .navbar.expanded .profile-dropdown {
+    display: none;
+  }
+
+  #profile {
+    order: 1;
+  }
+}
+
+/* Ajustes para el modo expandido en móviles */
+.navbar.expanded #profile {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.navbar.expanded .profile {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* quitar subrayado azul en enlaces del navbar */
+.navbar-link,
+.navbar-link:link,
+.navbar-link:visited,
+.navbar-link:hover,
+.navbar-link:active,
+.navbar-link:focus,
+.profile,
+.profile:link,
+.profile:visited,
+.profile:hover,
+.profile:active,
+.profile:focus,
+.cart,
+.cart:link,
+.cart:visited,
+.cart:hover,
+.cart:active,
+.cart:focus {
+  text-decoration: none;
+  border-bottom: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/* mantener accesibilidad: mostrar foco solo para navegación por teclado */
+.navbar-link:focus-visible,
+.profile:focus-visible,
+.cart:focus-visible {
+  outline: 2px solid rgba(0, 123, 255, 0.6);
+  outline-offset: 2px;
+}
+
+/* estilos menores para el dropdown si lo añades */
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 56px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  padding: 8px 0;
+  border-radius: 6px;
+  z-index: 2000;
+}
+.dropdown-item { padding: 8px 16px; display: block; color: #111; background: transparent; border: none; cursor: pointer; }
+.dropdown-item:hover { background: rgba(0,0,0,0.03); }
+
+/* declaración global de colores */
+:root {
+   --primary-color: #0f3460; 
   
+}
+
+.transparent-btn {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.transparent-btn:hover {
+  opacity: 0.8;
+}
+
+/* left toggle (siempre alineado a la izquierda) */
+.left-toggle {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.left-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.left-toggle-btn:focus {
+  outline: 2px solid rgba(15,52,96,0.18);
+  outline-offset: 2px;
+}
+
+.left-toggle-btn .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-color, #0f3460);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* menú desplegable del toggle izquierdo */
+.left-toggle-menu {
+  position: absolute;
+  left: 0;
+  top: 44px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(15,52,96,0.08);
+  border-radius: 8px;
+  padding: 8px;
+  min-width: 140px;
+}
+
+.left-menu-item {
+  display: block;
+  padding: 8px 12px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.left-menu-item:hover {
+  background: rgba(15,52,96,0.06);
+  color: var(--primary-color);
+}
+
+/* evitar solapamiento con el brand */
+.navbar-container { position: relative; }
+.navbar-brand { margin-left: 56px; } /* ajusta si es necesario */
+
+/* responsive: mover un poco el toggle en pantallas pequeñas */
+@media (max-width: 576px) {
+  .left-toggle { left: 8px; top: 8px; }
+  .navbar-brand { margin-left: 48px; }
+}
+
+/* make container span full window and use absolute corners */
+.navbar-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 24px; /* horizontal gutter from window edges */
+  box-sizing: border-box;
+  display: block; /* keep bootstrap layout but allow absolute children */
+}
+
+/* left corner: brand always pinned to window left */
+.brand-wrap,
+.navbar-brand {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2200;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* right corner: actions (cart / profile) pinned to window right */
+.navbar-actions {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2200;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* center: SearchBar is centered relative to window */
+.navbar-search-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  max-width: calc(100% - 320px); /* leave space for corners */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2100;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .navbar-search-center {
+    width: 420px;
+    max-width: calc(100% - 200px);
+  }
+  .brand-wrap { left: 16px; }
+  .navbar-actions { right: 16px; }
+}
+
+@media (max-width: 768px) {
+  /* navbar más alto para espacio comfortable */
+  .navbar {
+    min-height: 72px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  /* layout en una fila, elementos centrados verticalmente */
+  .navbar-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between;
+    gap: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative;
+  }
+
+  /* esquinas en flujo (ya no absolute) */
+  .left-corner,
+  .brand-wrap,
+  .navbar-actions {
+    position: static !important;
+    top: auto !important;
+    transform: none !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2200;
+  }
+
+  /* barra de búsqueda ocupa el espacio central y queda alineada verticalmente */
+  .navbar-search-center {
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    width: auto;
+    max-width: calc(100% - 120px); /* deja espacio para esquinas */
+    z-index: 2100;
+  }
+
+  /* asegurar inputs y botones tengan altura coherente */
+  .navbar-search-center .search-container,
+  .navbar-actions .transparent-btn,
+  .left-corner .left-toggle-btn {
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* si aún hay solapamiento en pantallas muy pequeñas, ocultar búsqueda */
+  @media (max-width: 420px) {
+    .navbar-search-center { display: none !important; }
+  }
+}
+
+/* ocultar la marca en dispositivos móviles */
+@media (max-width: 768px) {
+  .brand-wrap,
+  .navbar-brand {
+    display: none !important;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* mover profile y cart 4px a la izquierda en móviles */
+  .navbar-actions .profile,
+  .navbar-actions .transparent-btn,
+  .navbar-actions .cart {
+    transform: translateX(-12px);
+  }
 }

@@ -1,0 +1,51 @@
+/* overlay */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.36);
+  z-index: 3000;
+  display: flex;
+  align-items: stretch;
+}
+
+/* panel */
+.sidebar {
+  width: 280px;
+  max-width: 85vw;
+  background: #fff;
+  box-shadow: 0 20px 40px rgba(15,52,96,0.12);
+  padding: 20px;
+  transform: translateX(0);
+  animation: slideInLeft .18s ease;
+}
+
+/* close */
+.sidebar-close {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #333;
+}
+
+/* nav */
+.sidebar-nav {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sidebar-item {
+  padding: 10px 8px;
+  border-radius: 8px;
+  color: #0f3460;
+  text-decoration: none;
+  font-weight: 600;
+}
+.sidebar-item:hover { background: rgba(15,52,96,0.06); }
+
+@keyframes slideInLeft {
+  from { transform: translateX(-12px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}

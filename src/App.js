@@ -6,10 +6,14 @@ import Footer from "./components/Footer/Footer";
 import Loader from "./components/Loader/Loader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SubNavbar from "./components/SubNavbar/SubNavbar";
+
 const Home = lazy(() => import("./pages/Home"));
 const Shop = lazy(() => import("./pages/Shop"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Product = lazy(() => import("./pages/Product"));
+const Login = lazy(() => import("./pages/Login"));
+
 function App() {
   return (
     <Suspense fallback={<Loader />}>
@@ -26,11 +30,14 @@ function App() {
           theme="light"
         />
         <NavBar />
+
+      
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/shop/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
       </Router>

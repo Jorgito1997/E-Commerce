@@ -14,7 +14,7 @@ const options = [
 const customStyles = {
     control: (provided) => ({
         ...provided,
-        backgroundColor: "#0f3460",
+        backgroundColor: "var(--primary-color, #0f3460)",
         color: "white",
         borderRadius: "5px",
         border: "none",
@@ -24,12 +24,8 @@ const customStyles = {
     }),
     option: (provided, state) => ({
         ...provided,
-        backgroundColor: state.isSelected ? "#0f3460" : "white",
-        color: state.isSelected ? "white" : "#0f3460",
-        "&:hover": {
-        backgroundColor: "#0f3460",
-        color: "white",
-        },
+        backgroundColor: state.isSelected || state.isFocused ? "var(--primary-color, #0f3460)" : "white",
+        color: state.isSelected || state.isFocused ? "white" : "var(--primary-color, #0f3460)",
     }),
     singleValue: (provided) => ({
         ...provided,
